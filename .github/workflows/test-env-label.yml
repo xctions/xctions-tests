@@ -29,18 +29,16 @@ jobs:
 
       - name: Create base branch
         run: |
-          base_branch=$(echo ${{ env.BASE_BRANCH }})
-          git checkout -b $base_branch
-          git push origin $base_branch
+          git checkout -b ${{ env.BASE_BRANCH }}
+          git push origin ${{ env.BASE_BRANCH }}
 
       - name: Create head branch
         run: |
-          HEAD_BRANCH="head-$(openssl rand -hex 4)"
-          git checkout -b $HEAD_BRANCH
-          echo "Some minor changes" >> README.md
-          git add README.md
+          git checkout -b ${{ env.HEAD_BRANCH }}
+          echo "Some minor changes" >> a.txt
+          git add .
           git commit -m "Minor changes"
-          git push origin $HEAD_BRANCH
+          git push origin ${{ env.HEAD_BRANCH }}
 
       - name: Create pull request
         id: create_pr
