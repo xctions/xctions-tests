@@ -48,7 +48,13 @@ jobs:
           echo ================================================
           git branch -a
           echo ================================================
-          pr_url=$(gh pr create --base ${{ env.BASE_BRANCH }} --head ${{ env.HEAD_BRANCH }} --title "Test PR" --body "This is a test PR")
+          pr_url=$(gh pr create \
+            --base ${{ env.BASE_BRANCH }} \
+            --head ${{ env.HEAD_BRANCH }} \
+            --title "Test PR" \
+            --body "This is a test PR" \
+            --label "dev")
+
           echo "pr_url=$pr_url" >> $GITHUB_OUTPUT
 
       - name: Add label to PR
