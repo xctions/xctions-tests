@@ -16,6 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+
+      - name: Git configuration
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "xctions@users.noreply.github.com"
+
       - name: Create base branch
         run: |
           base_branch="base-$(openssl rand -hex 4)"
