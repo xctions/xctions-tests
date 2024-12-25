@@ -69,7 +69,7 @@ jobs:
         id: env-label
         uses: xctions/env-label@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           pr_number: ${{ steps.create_pr.outputs.pr_number }}
           repository: ${{ github.repository }}
         
