@@ -16,6 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Random Branch Name
+        id: random_branch
+        run: |
+          echo "BASE_BRANCH=base-$(openssl rand -hex 4)" >> $GITHUB_ENV
+          echo "HEAD_BRANCH=head-$(openssl rand -hex 4)" >> $GITHUB_ENV
 
       - name: Git configuration
         run: |
@@ -24,18 +29,18 @@ jobs:
 
       - name: Create base branch
         run: |
-          base_branch="base-$(openssl rand -hex 4)"
+          base_branch=$(echo ${{ env.BASE_BRANCH }})
           git checkout -b $base_branch
           git push origin $base_branch
 
       - name: Create head branch
         run: |
-          head_branch="head-$(openssl rand -hex 4)"
-          git checkout -b $head_branch
+          HEAD_BRANCH="head-$(openssl rand -hex 4)"
+          git checkout -b $HEAD_BRANCH
           echo "Some minor changes" >> README.md
           git add README.md
           git commit -m "Minor changes"
-          git push origin $head_branch
+          git push origin $HEAD_BRANCH
 
       - name: Create pull request
         id: create_pr
@@ -43,13 +48,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pr_url=$(gh pr create --base $base_branch --head $head_branch --title "Test PR" --body "This is a test PR")
-          echo "pr_url=$pr_url" >> $GITHUB_ENV
+          echo "pr_url=$pr_url" >> $GITHUB_OUTPUT
 
       - name: Add label to PR
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          pr_number=$(gh pr view ${{ env.pr_url }} --json number --jq '.number')
+          pr_number=$(gh pr view ${{ steps.create_pr.outputs.pr_url }} --json number --jq '.number')
           gh pr edit $pr_number --add-label "dev"
 
       - name: Run `env-label` action
