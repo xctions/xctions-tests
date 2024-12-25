@@ -65,6 +65,7 @@ jobs:
           gh pr edit $pr_number --add-label "dev"
 
       - name: Run `env-label` action
+        id: env-label
         uses: xctions/env-label@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
