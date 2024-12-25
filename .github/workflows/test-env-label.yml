@@ -78,9 +78,9 @@ jobs:
           pr_number: ${{ steps.create_pr.outputs.pr_number }}
           repository: ${{ github.repository }}
         
-      - name: Print env from `env-label` action
+      - name: Print env from env-label action
         run: |
-          echo "env from `env-label` action"
+          echo "env from env-label action"
           echo "================================"
           echo "env: ${{ steps.env-label.outputs.env }}"
           echo "================================"
