@@ -17,5 +17,5 @@ jobs:
   action-workflow-print-env:
     runs-on: ubuntu-latest
     steps:
-      - uses: xctions/sctions-tests/actions/print-all-env
+      - uses: xctions/sctions-tests/actions/print-all-env@main
     
