@@ -10,4 +10,12 @@ jobs:
       - name: Print all environment variables
         run: |
           printenv
+
+  reusable-workflow-print-env:
+    uses: xctions/xctions-tests/.github/workflows/reusable-print-all-env.yml@main
+
+  action-workflow-print-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: xctions/sctions-tests/actions/print-all-env
     

@@ -1,0 +1,12 @@
+name: Reusable Print All Environment Variables
+
+on: 
+  workflow_call: 
+    
+jobs:
+  print-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print all environment variables
+        run: |
+          printenv

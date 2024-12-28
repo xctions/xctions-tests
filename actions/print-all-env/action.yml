@@ -1,0 +1,10 @@
+name: Custom Composite Action - Print All Environment Variables
+description: Print all environment variables
+
+runs:
+  using: composite
+  steps:
+    - name: Print all environment variables
+      shell: bash
+      run: |
+        printenv
